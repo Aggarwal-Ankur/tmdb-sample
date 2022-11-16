@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TMDB Sample</string>
+    <string name="search_hint">Search Movies</string>
+    <string name="retry">Retry</string>
+    <string name="no_results">No results or network error</string>
+    <string name="fragment_main_label">Latest Movies</string>
+</resources>
