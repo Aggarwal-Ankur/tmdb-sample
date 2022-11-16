@@ -1,0 +1,1 @@
+Sample app to display latest movies from The Movie Database
