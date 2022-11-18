@@ -5,7 +5,7 @@ import com.aggarwalankur.tmdbsample.network.Movie
 import kotlinx.coroutines.flow.Flow
 
 interface TmdbRepository {
-    suspend fun getLatestMovies() : Flow<PagingData<Movie>>
+    fun getLatestMovies() : Flow<PagingData<Movie>>
 
-    suspend fun getSearchFilteredMovies(searchString : String) : Flow<PagingData<Movie>>
+    fun getSearchFilteredMovies(searchString : String) : Flow<PagingData<Movie>>
 }

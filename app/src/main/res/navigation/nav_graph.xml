@@ -7,7 +7,20 @@
 
     <fragment
         android:id="@+id/latestMoviesFragment"
-        android:name="com.aggarwalankur.tmdbsample.view.latest.LatestMoviesFragment"
+        android:name="com.aggarwalankur.tmdbsample.view.latest.MainFragment"
         android:label="@string/fragment_main_label"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/navigateToDetailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.aggarwalankur.tmdbsample.view.details.DetailsFragment"
+        android:label="@string/fragment_details_label"
+        tools:layout="@layout/fragment_details">
+        <argument
+            android:name="selected_movie"
+            app:argType="com.aggarwalankur.tmdbsample.network.Movie" />
+    </fragment>
 </navigation>

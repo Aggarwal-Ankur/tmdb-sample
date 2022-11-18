@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="movie"
+            type="com.aggarwalankur.tmdbsample.network.Movie" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.details.DetailsFragment">
+
+        <ImageView
+            android:id="@+id/posterIv"
+            android:layout_width="@dimen/details_image_size"
+            android:layout_height="@dimen/details_image_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadImg="@{movie.posterPath}"
+            tools:src="@tools:sample/avatars"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/posterIv">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/titleTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:fontFamily="serif-monospace"
+                    android:layout_gravity="center_horizontal"
+                    android:text="@{movie.title}"
+                    android:textSize="@dimen/text_size_big"
+                    tools:text="@string/app_name" />
+
+                <TextView
+                    android:id="@+id/releaseDateTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@{String.format(@string/release_date_text, movie.releaseDate)}"
+                    tools:text="Release date : 01-01-2000" />
+
+                <TextView
+                    android:id="@+id/voteCountTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@{String.format(@string/vote_count_text, movie.voteCount)}"
+                    tools:text="Votes : 1000" />
+
+                <TextView
+                    android:id="@+id/popularityTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@{String.format(@string/popularity_text, movie.popularity)}"
+                    tools:text="Votes : 1000" />
+
+                <TextView
+                    android:id="@+id/overviewTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginEnd="8dp"
+                    android:text="@{movie.overview}"
+                    tools:text="Overview Lorem Ipsum" />
+            </LinearLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

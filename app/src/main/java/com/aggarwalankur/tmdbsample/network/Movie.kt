@@ -11,24 +11,17 @@ import kotlinx.parcelize.Parcelize
 data class Movie (
 
     @PrimaryKey(autoGenerate = true)
-    val user_key: Long,
+    val movie_key: Long,
 
     @field:SerializedName("id") val id : Long,
-    @field:SerializedName("login") val login : String,
-    @field:SerializedName("type") val type : String,
+    @field:SerializedName("title") val title : String,
+    @field:SerializedName("overview") val overview : String,
 
-    @field:SerializedName("html_url")
-    val profileUrl : String,
+    @field:SerializedName("poster_path") val posterPath : String,
+    @field:SerializedName("release_date") val releaseDate : String,
+    @field:SerializedName("vote_average") val voteAverage : Double,
+    @field:SerializedName("vote_count") val voteCount : Int,
+    @field:SerializedName("popularity") val popularity : Double
 
-    @field:SerializedName("avatar_url")
-    val avatarUrl : String,
-
-    @field:SerializedName("followers_url")
-    val followersUrl : String,
-
-    @field:SerializedName("repos_url")
-    val reposUrl : String,
-
-    var isStarred : Boolean = false
 
 ) : Parcelable

@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TMDBSample"
-        tools:ignore="AllowBackup">
+        tools:ignore="AllowBackup"
+        >
         <activity
             android:name=".view.MainActivity"
             android:exported="true">

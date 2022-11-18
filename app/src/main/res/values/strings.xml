@@ -4,4 +4,8 @@
     <string name="retry">Retry</string>
     <string name="no_results">No results or network error</string>
     <string name="fragment_main_label">Latest Movies</string>
+    <string name="fragment_details_label">Movie Details</string>
+    <string name="release_date_text">Release Date : %s</string>
+    <string name="vote_count_text">Vote Count : %s</string>
+    <string name="popularity_text">Popularity : %s</string>
 </resources>
