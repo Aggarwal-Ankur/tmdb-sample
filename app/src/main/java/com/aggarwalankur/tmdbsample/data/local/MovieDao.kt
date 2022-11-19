@@ -19,6 +19,12 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     fun getAllMovies(): PagingSource<Int, Movie>
 
+    @Query("SELECT * FROM movies WHERE id = :movieId")
+    suspend fun getMovieById(movieId: Long): Movie?
+
+    @Query("SELECT * FROM movies WHERE movie_key = :key")
+    suspend fun getMovieByKey(key: Long): Movie?
+
     @Query("SELECT * FROM movies WHERE title LIKE :queryString")
-    fun moviesByTitle(queryString : String): PagingSource<Int, Movie>
+    fun getMoviesByTitle(queryString : String): List<Movie>
 }
