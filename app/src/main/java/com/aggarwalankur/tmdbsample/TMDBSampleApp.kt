@@ -6,8 +6,12 @@ import timber.log.Timber
 
 @HiltAndroidApp
 class TMDBSampleApp : Application() {
+    companion object {
+        lateinit var instance: Application private set
+    }
     override fun onCreate() {
         super.onCreate()
+        instance = this
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
         else Timber.plant(CrashReportingTree())
     }

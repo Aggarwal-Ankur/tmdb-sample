@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.databinding.FragmentMainBinding
 import com.aggarwalankur.tmdbsample.network.Movie
 import com.aggarwalankur.tmdbsample.view.viewmodels.MainViewModel
@@ -104,7 +105,8 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
                     ?: loadState.append as? LoadState.Error
                     ?: loadState.prepend as? LoadState.Error
                 errorState?.let {
-                    val snackbar = Snackbar.make(binding.mainLayout, "Error String", Snackbar.LENGTH_INDEFINITE)
+                    val snackbar = Snackbar.make(binding.mainLayout,
+                        getString(R.string.default_network_error), Snackbar.LENGTH_INDEFINITE)
                     snackbar.setAction("OK", View.OnClickListener {
                         snackbar.dismiss()
                     })
