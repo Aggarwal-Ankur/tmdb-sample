@@ -12,6 +12,10 @@ class MainLoadStateViewHolder(
     private val binding: LoadStateFooterItemBinding,
     retry: () -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
+    val retryButton = binding.retryButton
+        .also {
+            it.setOnClickListener{retry()}
+        }
 
     fun bind(loadState: LoadState) {
         if (loadState is LoadState.Error) {
@@ -19,6 +23,7 @@ class MainLoadStateViewHolder(
         }
         binding.progressBar.isVisible = loadState is LoadState.Loading
         binding.errorMsg.isVisible = loadState is LoadState.Error
+        retryButton.isVisible = loadState is LoadState.Error
     }
 
     companion object {

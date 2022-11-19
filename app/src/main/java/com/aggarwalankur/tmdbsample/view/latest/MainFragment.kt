@@ -26,7 +26,7 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
 
     private lateinit var adapter: MovieBindingAdapter
 
-    private val viewModel: MainViewModel by viewModels<MainViewModel>()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,13 +80,6 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
             swipeLayout.isRefreshing = false
             adapter.retry()
         }
-
-        val notLoading = adapter.loadStateFlow
-            // Only emit when REFRESH LoadState for RemoteMediator changes.
-            .distinctUntilChangedBy { it.source.refresh }
-            // Only react to cases where Remote REFRESH completes i.e., NotLoading.
-            .map { it.source.refresh is LoadState.NotLoading }
-
 
         lifecycleScope.launchWhenCreated {
             pagingData.collectLatest(adapter::submitData)

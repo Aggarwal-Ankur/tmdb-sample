@@ -29,16 +29,9 @@ android {
         }
     }
 
-    android {
-        sourceSets {
-            String sharedTestDir = 'src/sharedTest/java'
-            test {
-                java.srcDirs += sharedTestDir
-            }
-            androidTest {
-                java.srcDirs += sharedTestDir
-            }
-        }
+    sourceSets {
+        androidTest.java.srcDirs += "src/sharedTest/java"
+        test.java.srcDirs += "src/sharedTest/java"
     }
 
     buildTypes {
@@ -134,6 +127,10 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
     // Hilt testing
+    testImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    // Hilt instrumented testing
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
