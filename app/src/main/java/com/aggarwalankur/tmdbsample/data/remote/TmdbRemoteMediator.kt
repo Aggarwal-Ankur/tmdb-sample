@@ -61,7 +61,7 @@ class TmdbRemoteMediator(
             val endOfPaginationReached = movies.isEmpty()
             movieDatabase.withTransaction {
                 // clear all data for movies
-                if (loadType == LoadType.REFRESH) {
+                if (loadType == LoadType.REFRESH && !movies.isEmpty()) {
                     movieDatabase.remoteKeysDao().clearRemoteKeys()
                     movieDatabase.moviesDao().clear()
                 }

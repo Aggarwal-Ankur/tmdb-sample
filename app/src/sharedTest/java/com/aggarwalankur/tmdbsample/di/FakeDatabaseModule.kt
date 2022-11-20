@@ -26,7 +26,7 @@ object FakeDatabaseModule {
 
     @Singleton
     @Provides
-    fun provideMoviesDaoFromDatabase(usersDatabase : MoviesDatabase) : MovieDao {
-        return usersDatabase.moviesDao()
+    fun provideMoviesDaoFromDatabase(moviesDatabase : MoviesDatabase) : MovieDao {
+        return moviesDatabase.moviesDao()
     }
 }

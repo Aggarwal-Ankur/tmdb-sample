@@ -1,6 +1,6 @@
 package com.aggarwalankur.tmdbsample.network
 
-import retrofit2.http.Query
+import com.aggarwalankur.tmdbsample.common.Constants
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.math.min
@@ -8,10 +8,19 @@ import kotlin.math.min
 class FakeMovieFetchService  @Inject constructor() : MovieFetchService {
 
     var failureMsg: String? = null
+    var defaultPageSize:Int = Constants.NETWORK_PAGE_SIZE
     private val items : MutableList<Movie> = arrayListOf()
 
     fun addFakeMovie(movie: Movie){
         items.add(movie)
+    }
+
+    fun setPageSize (pageSize : Int) {
+        defaultPageSize = pageSize
+    }
+
+    fun setReturnError(value: String) {
+        failureMsg = value
     }
 
     override suspend fun fetchMovies(apiKey: String, page: Int): MovieList {
@@ -24,7 +33,7 @@ class FakeMovieFetchService  @Inject constructor() : MovieFetchService {
         return MovieList(
             items = returnItems,
             totalCount = returnItems.count(),
-            nextPage = if (returnItems.count() < 20) null else page+1
+            nextPage = if (returnItems.count() < defaultPageSize) null else page+1
         )
     }
 
@@ -36,9 +45,10 @@ class FakeMovieFetchService  @Inject constructor() : MovieFetchService {
     private fun getMovies(page:Int) : List<Movie> {
         //TMDB repo is 1-based
         if (page<1) {
-            return items.subList(0, min(items.size, 20))
+            return items.subList(0, min(items.size, defaultPageSize))
         }
-        val startPos = (page-1) * 20
-        return items.subList(startPos, min(items.size, startPos + 20))
+        val startPos = (page-1) * defaultPageSize
+        if (items.size < startPos) return emptyList()
+        return items.subList(startPos, min(items.size, startPos + defaultPageSize))
     }
 }

@@ -27,7 +27,6 @@ import org.robolectric.annotation.Config
 class MoviesDaoTest {
 
     //Not using HiltAndroidRule, possible error - https://stackoverflow.com/questions/62927037/customtestapplication-value-cannot-be-annotated-with-hiltandroidapp
-    //No time to solve right now
 
     private lateinit var database: MoviesDatabase
     private lateinit var movieDao: MovieDao

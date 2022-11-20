@@ -13,10 +13,10 @@ class FakeMovieFactory {
             title = movieName,
             overview = "Movie $movieName overview",
             posterPath = "/abc$movie_key.jpg",
-            releaseDate = "01-01-2000",
+            releaseDate = "01-01-2020",
             voteAverage = 100.100,
             voteCount = 2000,
-            popularity = 200.200
+            popularity = 200.202
         )
     }
 
