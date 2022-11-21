@@ -2,12 +2,16 @@
     <string name="app_name">TMDB Sample</string>
     <string name="search_hint">Search Movies</string>
     <string name="default_network_error">Error while fetching data. Check your internet connection and try again</string>
+    <string name="empty"> </string>
     <string name="retry">Retry</string>
     <string name="no_results">No results or network error</string>
     <string name="fragment_main_label">Latest Movies</string>
     <string name="fragment_details_label">Movie Details</string>
+    <string name="fragment_search_label">Search Results</string>
     <string name="release_date_text">Release Date : %s</string>
     <string name="vote_count_text">Vote Count : %s</string>
     <string name="popularity_text">Popularity : %s</string>
+    <string name="search_results_text">Showing top %s of %s results for search criteria %s</string>
+    <string name="no_results_text">No results found for search criteria %s</string>
     <string name="content_description_poster">Poster Image for the movie</string>
 </resources>

@@ -88,7 +88,7 @@ class TmdbRemoteMediator(
         return state.pages.lastOrNull { it.data.isNotEmpty() }?.data?.lastOrNull()
             ?.let { movie ->
                 // Get the remote keys of the last item retrieved
-                movieDatabase.remoteKeysDao().remoteKeysUserId(movie.id)
+                movieDatabase.remoteKeysDao().remoteKeysMovieId(movie.id)
             }
     }
 
@@ -98,7 +98,7 @@ class TmdbRemoteMediator(
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
             ?.let { movie ->
                 // Get the remote keys of the first items retrieved
-                movieDatabase.remoteKeysDao().remoteKeysUserId(movie.id)
+                movieDatabase.remoteKeysDao().remoteKeysMovieId(movie.id)
             }
     }
 
@@ -108,7 +108,7 @@ class TmdbRemoteMediator(
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.id?.let { movieId ->
-                movieDatabase.remoteKeysDao().remoteKeysUserId(movieId)
+                movieDatabase.remoteKeysDao().remoteKeysMovieId(movieId)
             }
         }
     }

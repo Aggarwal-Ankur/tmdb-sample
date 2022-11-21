@@ -25,6 +25,6 @@ interface MovieDao {
     @Query("SELECT * FROM movies WHERE movie_key = :key")
     suspend fun getMovieByKey(key: Long): Movie?
 
-    @Query("SELECT * FROM movies WHERE title LIKE :queryString")
-    fun getMoviesByTitle(queryString : String): List<Movie>
+    @Query("SELECT * FROM movies")
+    suspend fun getMoviesList(): List<Movie>
 }

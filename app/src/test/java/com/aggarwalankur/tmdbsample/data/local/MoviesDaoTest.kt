@@ -213,7 +213,7 @@ class MoviesDaoTest {
             //When
             movieDao.insertAll(movieList)
             val query = "%movie%"
-            val fetchedMovies = movieDao.getMoviesByTitle(query)
+            val fetchedMovies = movieDao.getMoviesList()
 
             //Then
             assertThat(fetchedMovies).hasSize(3)

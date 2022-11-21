@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.aggarwalankur.tmdbsample.databinding.ListItemMovieBinding
 import com.aggarwalankur.tmdbsample.network.Movie
 
-class MovieBindingAdapter (private val onClickListener: ItemViewHolder.OnClickListener) :
+class MoviePageBindingAdapter (private val onClickListener: ItemViewHolder.OnClickListener) :
     PagingDataAdapter<Movie, ItemViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
