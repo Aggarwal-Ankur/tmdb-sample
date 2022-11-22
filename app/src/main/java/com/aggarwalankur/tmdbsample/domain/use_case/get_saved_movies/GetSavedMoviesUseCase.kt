@@ -15,10 +15,8 @@ class GetSavedMoviesUseCase @Inject constructor(
 ){
     operator fun invoke() : Flow<Resource<List<Movie>>> = flow {
         try {
-            Timber.d("++++ saved 1")
             emit(Resource.Loading<List<Movie>>())
             val movies = repository.getSavedMovies()
-            Timber.d("++++ saved 2. size = ${movies.size}")
             emit(Resource.Success<List<Movie>>(movies))
         } catch (e : CancellationException) {
             emit(Resource.Error<List<Movie>>("Movie Fetch cancelled"))

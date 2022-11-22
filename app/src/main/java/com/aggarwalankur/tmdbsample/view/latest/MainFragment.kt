@@ -91,17 +91,6 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
             adapter.retry()
         }
 
-        searchView.onItemClickListener = object : AdapterView.OnItemClickListener {
-            override fun onItemClick(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val searchString=searchView.adapter.getItem(position)
-                Timber.d("clicked $searchString")
-            }
-        }
 
         val arrayAdapter = ArrayAdapter<String>(TMDBSampleApp.instance, android.R.layout.simple_dropdown_item_1line)
         searchView.setAdapter(arrayAdapter)
@@ -114,7 +103,6 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
             viewModel.savedMovies.collectLatest { data ->
                 if (!data.isEmpty()) {
                     arrayAdapter.clear()
-                    Timber.d("++++ main fragment size = ${data.size}")
                     arrayAdapter.addAll(data)
                     arrayAdapter.notifyDataSetChanged()
                 }

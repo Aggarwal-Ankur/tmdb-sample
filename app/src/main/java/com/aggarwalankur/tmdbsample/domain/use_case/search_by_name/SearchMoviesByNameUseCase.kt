@@ -17,9 +17,7 @@ class SearchMoviesByNameUseCase @Inject constructor(
     operator fun invoke(queryString : String) : Flow<Resource<MovieList>> = flow {
         try {
             emit(Resource.Loading<MovieList>())
-            Timber.d("++++ search 1.")
             val movieList = repository.getSearchFilteredMovies(queryString)
-            Timber.d("++++ search 2. size = ${movieList.items.size}")
             emit(Resource.Success<MovieList>(movieList))
         } catch (e : CancellationException) {
             emit(Resource.Error<MovieList>("Movie Fetch cancelled"))

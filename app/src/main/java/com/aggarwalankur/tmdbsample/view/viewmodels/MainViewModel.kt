@@ -29,7 +29,6 @@ class MainViewModel @Inject constructor(
         //Equivalent to launchIn(viewModelScope)
         viewModelScope.launch {
             pagingDataFlow.collectLatest {
-                Timber.d("++++ changed data")
                 getMovies()
             }
         }
@@ -39,7 +38,6 @@ class MainViewModel @Inject constructor(
         getSavedMoviesUseCase().onEach { result ->
             when(result) {
                 is Resource.Success -> {
-                    Timber.d("++++ Result size = ${result.data?.size}")
                     result.data?.let{
                         _savedMovies.value = it.map{ movie->
                             movie.title

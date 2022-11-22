@@ -42,7 +42,6 @@ class SearchResultsViewModel @Inject constructor(
         searchMoviesByNameUseCase(searchString).onEach { result ->
             when(result) {
                 is Resource.Success -> {
-                    Timber.d("++++ Searched size = ${result.data?.items?.size}")
                     result.data?.let{
                         _searchedMovies.value = it
                         _searchedMoviesError.value = Strings.get(R.string.empty) //Clear any previous errors

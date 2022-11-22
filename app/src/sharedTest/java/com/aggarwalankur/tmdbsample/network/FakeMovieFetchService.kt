@@ -1,6 +1,7 @@
 package com.aggarwalankur.tmdbsample.network
 
 import com.aggarwalankur.tmdbsample.common.Constants
+import okhttp3.internal.filterList
 import java.io.IOException
 import javax.inject.Inject
 import kotlin.math.min
@@ -23,6 +24,10 @@ class FakeMovieFetchService  @Inject constructor() : MovieFetchService {
         failureMsg = value
     }
 
+    fun clearError(value: String) {
+        failureMsg = null
+    }
+
     override suspend fun fetchMovies(apiKey: String, page: Int): MovieList {
         failureMsg?.let {
             throw IOException(it)
@@ -38,7 +43,11 @@ class FakeMovieFetchService  @Inject constructor() : MovieFetchService {
     }
 
     override suspend fun searchMovies(apiKey: String, query: String, page: Int): MovieList {
-        TODO("Not yet implemented")
+        failureMsg?.let {
+            throw IOException(it)
+        }
+        val filteredItems = items.filterList { this.title.contains(query) }
+        return MovieList(items = filteredItems, totalCount = filteredItems.size)
     }
 
 
