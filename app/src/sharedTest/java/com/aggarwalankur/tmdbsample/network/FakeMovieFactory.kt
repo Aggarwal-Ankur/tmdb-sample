@@ -1,6 +1,7 @@
 package com.aggarwalankur.tmdbsample.network
 
 import java.util.concurrent.atomic.AtomicLong
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 
 class FakeMovieFactory {
     private val counter = AtomicLong(0)

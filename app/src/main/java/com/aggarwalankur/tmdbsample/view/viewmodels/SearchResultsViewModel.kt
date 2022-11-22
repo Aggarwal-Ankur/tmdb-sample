@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aggarwalankur.tmdbsample.common.Resource
 import com.aggarwalankur.tmdbsample.domain.use_case.search_by_name.SearchMoviesByNameUseCase
-import com.aggarwalankur.tmdbsample.network.MovieList
+import com.aggarwalankur.tmdbsample.network.dto.MovieList
 import com.aggarwalankur.tmdbsample.view.searchresults.SearchResultsFragmentArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

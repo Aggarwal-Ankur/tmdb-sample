@@ -2,7 +2,6 @@ package com.aggarwalankur.tmdbsample.view.latest
 
 import android.view.View
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
@@ -17,7 +16,7 @@ import com.aggarwalankur.tmdbsample.data.local.MoviesDatabase
 import com.aggarwalankur.tmdbsample.launchFragmentInHiltContainer
 import com.aggarwalankur.tmdbsample.network.FakeMovieFactory
 import com.aggarwalankur.tmdbsample.network.FakeMovieFetchService
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.network.MovieFetchService
 import com.aggarwalankur.tmdbsample.saveMovieBlocking
 import com.google.common.truth.Truth
@@ -76,7 +75,6 @@ class MainFragmentTest {
         return runTest {
             launchFragmentInHiltContainer<MainFragment>()
 
-            onView(withId(R.id.progress_bar)).check(matches(withEffectiveVisibility(Visibility.GONE)))
             onView(withId(R.id.list)).check(matches(withEffectiveVisibility(Visibility.GONE)))
             onView(withId(R.id.searchTV)).check(matches(isDisplayed()))
         }

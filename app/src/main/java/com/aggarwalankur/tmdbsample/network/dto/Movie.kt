@@ -1,4 +1,4 @@
-package com.aggarwalankur.tmdbsample.network
+package com.aggarwalankur.tmdbsample.network.dto
 
 import android.os.Parcelable
 import androidx.room.Entity

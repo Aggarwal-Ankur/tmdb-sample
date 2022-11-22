@@ -2,7 +2,7 @@ package com.aggarwalankur.tmdbsample.domain.use_case.search_by_name
 
 import com.aggarwalankur.tmdbsample.common.Resource
 import com.aggarwalankur.tmdbsample.domain.repository.TmdbRepository
-import com.aggarwalankur.tmdbsample.network.MovieList
+import com.aggarwalankur.tmdbsample.network.dto.MovieList
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.concurrent.CancellationException

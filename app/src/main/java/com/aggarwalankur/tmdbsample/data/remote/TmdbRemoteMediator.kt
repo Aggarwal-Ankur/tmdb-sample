@@ -6,19 +6,16 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.aggarwalankur.tmdbsample.BuildConfig
+import com.aggarwalankur.tmdbsample.common.Constants
 import com.aggarwalankur.tmdbsample.data.local.MoviesDatabase
 import com.aggarwalankur.tmdbsample.data.local.RemoteKeys
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.network.MovieFetchService
 import retrofit2.HttpException
 import java.io.IOException
 
-//TMDB page values start at 1, not 0
-private const val TMDB_STARTING_PAGE_INDEX = 1
-
 @OptIn(ExperimentalPagingApi::class)
 class TmdbRemoteMediator(
-    private val query: String,
     private val service: MovieFetchService,
     private val movieDatabase: MoviesDatabase
 ) : RemoteMediator<Int, Movie>() {
@@ -32,7 +29,7 @@ class TmdbRemoteMediator(
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: TMDB_STARTING_PAGE_INDEX
+                remoteKeys?.nextKey?.minus(1) ?: Constants.TMDB_STARTING_PAGE_INDEX
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state)
@@ -52,8 +49,6 @@ class TmdbRemoteMediator(
             }
         }
 
-        //if (query.isBlank()) return MediatorResult.Error(Exception())
-
         try {
             val apiResponse = service.fetchMovies(BuildConfig.API_KEY, page)
 
@@ -65,7 +60,7 @@ class TmdbRemoteMediator(
                     movieDatabase.remoteKeysDao().clearRemoteKeys()
                     movieDatabase.moviesDao().clear()
                 }
-                val prevKey = if (page == TMDB_STARTING_PAGE_INDEX) null else page - 1
+                val prevKey = if (page == Constants.TMDB_STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = movies.map {
                     RemoteKeys(movieId = it.id, prevKey = prevKey, nextKey = nextKey)

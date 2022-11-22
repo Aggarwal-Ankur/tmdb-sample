@@ -1,5 +1,6 @@
 package com.aggarwalankur.tmdbsample.di
 
+import com.aggarwalankur.tmdbsample.BuildConfig
 import com.aggarwalankur.tmdbsample.common.Constants
 import com.aggarwalankur.tmdbsample.network.MovieFetchService
 import dagger.Module
@@ -19,11 +20,13 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideTmdbService(): MovieFetchService {
-        val logger = HttpLoggingInterceptor()
-        logger.level = Level.BASIC
-        val client = OkHttpClient.Builder()
-            .addInterceptor(logger)
-            .build()
+        val clientBuilder = OkHttpClient.Builder()
+        if (BuildConfig.DEBUG) {
+            val logger = HttpLoggingInterceptor()
+            logger.level = Level.BASIC
+            clientBuilder.addInterceptor(logger)
+        }
+        val client = clientBuilder.build()
         return Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .client(client)

@@ -2,7 +2,7 @@ package com.aggarwalankur.tmdbsample.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 
 @Database(
     entities = [Movie::class, RemoteKeys::class],

@@ -18,7 +18,7 @@ import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.databinding.FragmentMainBinding
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.view.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,11 +46,13 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         binding.list.addItemDecoration(decoration)
 
         searchView = binding.searchTV
-        // bind the state
-        binding.bindState(
+        bindAdapter()
+
+        bindList(
+            adapter = adapter,
             pagingData = viewModel.pagingDataFlow
         )
-
+        initSearchTV()
         return binding.root
     }
 
@@ -59,30 +61,18 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         findNavController().navigate(action)
     }
 
-    private fun FragmentMainBinding.bindState(
-        pagingData: Flow<PagingData<Movie>>
-    ) {
+    private fun bindAdapter() {
         adapter = MoviePageBindingAdapter(this@MainFragment)
-        list.adapter = adapter.withLoadStateFooter(
-            footer = MainLoadStateAdapter { adapter.retry() }
-        )
-
-        bindList(
-            adapter = adapter,
-            pagingData = pagingData
-        )
-
-        initSearchTV()
+        binding.list.adapter = adapter
 
     }
 
-    private fun FragmentMainBinding.bindList(
+    private fun bindList(
         adapter: MoviePageBindingAdapter,
         pagingData: Flow<PagingData<Movie>>
     ) {
-        retryButton.setOnClickListener { adapter.retry() }
-        swipeLayout.setOnRefreshListener {
-            swipeLayout.isRefreshing = false
+        binding.swipeLayout.setOnRefreshListener {
+            binding.swipeLayout.isRefreshing = false
             adapter.retry()
         }
 
@@ -118,15 +108,8 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
 
                 val isListEmpty =
                     loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
-                // show empty list
-                emptyList.isVisible = isListEmpty
                 // Only show the list if refresh succeeds.
-                list.isVisible = !isListEmpty
-                // Show loading spinner during initial load or refresh.
-                progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                // Show the retry state if initial load or refresh fails.
-                retryButton.isVisible = loadState.mediator?.refresh is LoadState.Error
-                        && adapter.itemCount == 0
+                binding.list.isVisible = !isListEmpty
                 // Snackbar on any error, regardless of whether it came from RemoteMediator or PagingSource
                 val errorState = loadState.source.append as? LoadState.Error
                     ?: loadState.source.prepend as? LoadState.Error
@@ -169,12 +152,12 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
     private fun movieSearched() {
         binding.searchTV.text.trim().toString().let {
             if (it.isNotBlank()) {
-                searchAction(it)
+                searchImeAction(it)
             }
         }
     }
 
-    private fun searchAction(searchString: String) {
+    private fun searchImeAction(searchString: String) {
         val action = MainFragmentDirections.navigateToSearchResults(searchString)
         findNavController().navigate(action)
     }

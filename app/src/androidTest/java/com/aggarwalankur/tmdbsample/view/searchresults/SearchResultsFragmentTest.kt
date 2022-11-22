@@ -13,7 +13,7 @@ import com.aggarwalankur.tmdbsample.data.local.MoviesDatabase
 import com.aggarwalankur.tmdbsample.launchFragmentInHiltContainer
 import com.aggarwalankur.tmdbsample.network.FakeMovieFactory
 import com.aggarwalankur.tmdbsample.network.FakeMovieFetchService
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.network.MovieFetchService
 import com.aggarwalankur.tmdbsample.saveMovieBlocking
 import dagger.hilt.android.testing.HiltAndroidRule

@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.aggarwalankur.tmdbsample.databinding.ListItemMovieBinding
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.view.latest.ItemViewHolder
 
 class MovieListBindingAdapter(private val onClickListener: ItemViewHolder.OnClickListener) :

@@ -1,6 +1,8 @@
 package com.aggarwalankur.tmdbsample.network
 
 import com.aggarwalankur.tmdbsample.common.Constants
+import com.aggarwalankur.tmdbsample.network.dto.Movie
+import com.aggarwalankur.tmdbsample.network.dto.MovieList
 import okhttp3.internal.filterList
 import java.io.IOException
 import javax.inject.Inject

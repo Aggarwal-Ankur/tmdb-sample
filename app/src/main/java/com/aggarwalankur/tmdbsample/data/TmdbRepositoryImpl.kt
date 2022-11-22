@@ -8,9 +8,9 @@ import com.aggarwalankur.tmdbsample.common.Constants
 import com.aggarwalankur.tmdbsample.data.local.MoviesDatabase
 import com.aggarwalankur.tmdbsample.data.remote.TmdbRemoteMediator
 import com.aggarwalankur.tmdbsample.domain.repository.TmdbRepository
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.network.MovieFetchService
-import com.aggarwalankur.tmdbsample.network.MovieList
+import com.aggarwalankur.tmdbsample.network.dto.MovieList
 import javax.inject.Inject
 
 class TmdbRepositoryImpl @Inject constructor(
@@ -20,7 +20,7 @@ class TmdbRepositoryImpl @Inject constructor(
     @OptIn(ExperimentalPagingApi::class)
     override fun getLatestMovies() = Pager(
         config = PagingConfig(Constants.NETWORK_PAGE_SIZE),
-        remoteMediator = TmdbRemoteMediator("", service, db)
+        remoteMediator = TmdbRemoteMediator(service, db)
     ) {
         db.moviesDao().getAllMovies()
     }.flow

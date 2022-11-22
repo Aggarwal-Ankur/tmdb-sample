@@ -12,7 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.databinding.FragmentSearchResultsBinding
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import com.aggarwalankur.tmdbsample.view.latest.ItemViewHolder
 import com.aggarwalankur.tmdbsample.view.viewmodels.SearchResultsViewModel
 import dagger.hilt.android.AndroidEntryPoint

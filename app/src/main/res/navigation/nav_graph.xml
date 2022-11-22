@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_details">
         <argument
             android:name="selected_movie"
-            app:argType="com.aggarwalankur.tmdbsample.network.Movie" />
+            app:argType="com.aggarwalankur.tmdbsample.network.dto.Movie" />
     </fragment>
     <fragment
         android:id="@+id/searchResultsFragment"

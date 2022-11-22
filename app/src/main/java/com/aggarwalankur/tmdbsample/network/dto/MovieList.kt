@@ -1,4 +1,4 @@
-package com.aggarwalankur.tmdbsample.network
+package com.aggarwalankur.tmdbsample.network.dto
 
 import com.google.gson.annotations.SerializedName
 

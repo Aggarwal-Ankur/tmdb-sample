@@ -2,7 +2,7 @@ package com.aggarwalankur.tmdbsample.domain.use_case.get_saved_movies
 
 import com.aggarwalankur.tmdbsample.common.Resource
 import com.aggarwalankur.tmdbsample.domain.repository.TmdbRepository
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import java.util.concurrent.CancellationException

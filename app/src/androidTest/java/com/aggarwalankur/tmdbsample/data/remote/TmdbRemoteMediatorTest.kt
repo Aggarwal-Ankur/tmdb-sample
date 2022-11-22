@@ -8,7 +8,7 @@ import com.aggarwalankur.tmdbsample.data.local.MovieDao
 import com.aggarwalankur.tmdbsample.data.local.MoviesDatabase
 import com.aggarwalankur.tmdbsample.network.FakeMovieFactory
 import com.aggarwalankur.tmdbsample.network.FakeMovieFetchService
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
@@ -59,7 +59,6 @@ class TmdbRemoteMediatorTest {
         movieFetchService.addFakeMovie(movie3)
 
         val remoteMediator = TmdbRemoteMediator(
-            "",
             movieFetchService,
             database
         )
@@ -86,7 +85,6 @@ class TmdbRemoteMediatorTest {
         //To test this, do not enter data in fakeservice
 
         val remoteMediator = TmdbRemoteMediator(
-            "",
             movieFetchService,
             database
         )

@@ -1,7 +1,7 @@
 package com.aggarwalankur.tmdbsample
 
 import com.aggarwalankur.tmdbsample.data.local.MoviesDatabase
-import com.aggarwalankur.tmdbsample.network.Movie
+import com.aggarwalankur.tmdbsample.network.dto.Movie
 import kotlinx.coroutines.runBlocking
 
 fun MoviesDatabase.saveMovieBlocking(movie: Movie) = runBlocking {

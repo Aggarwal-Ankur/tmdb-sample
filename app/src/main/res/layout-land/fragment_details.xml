@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.aggarwalankur.tmdbsample.network.Movie" />
+            type="com.aggarwalankur.tmdbsample.network.dto.Movie" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

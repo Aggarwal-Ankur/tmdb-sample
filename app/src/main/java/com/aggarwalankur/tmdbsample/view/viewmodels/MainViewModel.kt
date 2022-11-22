@@ -15,8 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getLatestMoviesUseCase: GetLatestMoviesUseCase,
-    private val getSavedMoviesUseCase: GetSavedMoviesUseCase,
-    private val searchMoviesByNameUseCase: SearchMoviesByNameUseCase
+    private val getSavedMoviesUseCase: GetSavedMoviesUseCase
 ) : ViewModel() {
 
     val pagingDataFlow = getLatestMoviesUseCase().cachedIn(viewModelScope)

@@ -1,5 +1,6 @@
 package com.aggarwalankur.tmdbsample.network
 
+import com.aggarwalankur.tmdbsample.network.dto.MovieList
 import retrofit2.http.GET
 import retrofit2.http.Query
 
