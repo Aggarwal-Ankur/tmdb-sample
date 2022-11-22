@@ -10,7 +10,6 @@ import com.aggarwalankur.tmdbsample.domain.use_case.search_by_name.SearchMoviesB
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -36,10 +35,10 @@ class MainViewModel @Inject constructor(
 
     private fun getMovies() {
         getSavedMoviesUseCase().onEach { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
-                    result.data?.let{
-                        _savedMovies.value = it.map{ movie->
+                    result.data?.let {
+                        _savedMovies.value = it.map { movie ->
                             movie.title
                         }
                     }

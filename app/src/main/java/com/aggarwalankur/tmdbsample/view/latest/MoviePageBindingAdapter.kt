@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import com.aggarwalankur.tmdbsample.databinding.ListItemMovieBinding
 import com.aggarwalankur.tmdbsample.network.Movie
 
-class MoviePageBindingAdapter (private val onClickListener: ItemViewHolder.OnClickListener) :
+class MoviePageBindingAdapter(private val onClickListener: ItemViewHolder.OnClickListener) :
     PagingDataAdapter<Movie, ItemViewHolder>(DIFF_UTIL) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding = ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding, onClickListener)
     }
 

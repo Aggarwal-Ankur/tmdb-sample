@@ -2,15 +2,14 @@ package com.aggarwalankur.tmdbsample.view.latest
 
 import android.os.Bundle
 import android.view.KeyEvent
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -18,14 +17,13 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.aggarwalankur.tmdbsample.R
-import com.aggarwalankur.tmdbsample.TMDBSampleApp
 import com.aggarwalankur.tmdbsample.databinding.FragmentMainBinding
 import com.aggarwalankur.tmdbsample.network.Movie
 import com.aggarwalankur.tmdbsample.view.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.*
-import timber.log.Timber
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
@@ -33,14 +31,11 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         private set
 
     private lateinit var adapter: MoviePageBindingAdapter
+    private lateinit var searchAdapter: ArrayAdapter<String>
 
     private val viewModel: MainViewModel by viewModels()
 
-    private lateinit var searchView : AutoCompleteTextView
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private lateinit var searchView: AutoCompleteTextView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,8 +87,15 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         }
 
 
-        val arrayAdapter = ArrayAdapter<String>(TMDBSampleApp.instance, android.R.layout.simple_dropdown_item_1line)
-        searchView.setAdapter(arrayAdapter)
+        activity?.let {
+            searchAdapter = ArrayAdapter<String>(
+                it.applicationContext,
+                android.R.layout.simple_dropdown_item_1line,
+                android.R.id.text1
+            )
+            searchView.setAdapter(searchAdapter)
+        }
+
 
         lifecycleScope.launchWhenCreated {
             pagingData.collectLatest(adapter::submitData)
@@ -102,9 +104,9 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         lifecycleScope.launchWhenStarted {
             viewModel.savedMovies.collectLatest { data ->
                 if (!data.isEmpty()) {
-                    arrayAdapter.clear()
-                    arrayAdapter.addAll(data)
-                    arrayAdapter.notifyDataSetChanged()
+                    searchAdapter.clear()
+                    searchAdapter.addAll(data)
+                    searchAdapter.notifyDataSetChanged()
                 }
             }
         }
@@ -114,7 +116,8 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         lifecycleScope.launchWhenCreated {
             adapter.loadStateFlow.collect { loadState ->
 
-                val isListEmpty = loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
+                val isListEmpty =
+                    loadState.refresh is LoadState.NotLoading && adapter.itemCount == 0
                 // show empty list
                 emptyList.isVisible = isListEmpty
                 // Only show the list if refresh succeeds.
@@ -130,8 +133,10 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
                     ?: loadState.append as? LoadState.Error
                     ?: loadState.prepend as? LoadState.Error
                 errorState?.let {
-                    val snackbar = Snackbar.make(binding.mainLayout,
-                        getString(R.string.default_network_error), Snackbar.LENGTH_INDEFINITE)
+                    val snackbar = Snackbar.make(
+                        binding.mainLayout,
+                        getString(R.string.default_network_error), Snackbar.LENGTH_INDEFINITE
+                    )
                     snackbar.setAction("OK", View.OnClickListener {
                         snackbar.dismiss()
                     })
@@ -169,7 +174,7 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         }
     }
 
-    private fun searchAction(searchString : String) {
+    private fun searchAction(searchString: String) {
         val action = MainFragmentDirections.navigateToSearchResults(searchString)
         findNavController().navigate(action)
     }

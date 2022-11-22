@@ -15,8 +15,9 @@ import javax.inject.Singleton
 object RepoModule {
     @Provides
     @Singleton
-    fun provideTmdbRepository(service: MovieFetchService,
-                              db: MoviesDatabase
+    fun provideTmdbRepository(
+        service: MovieFetchService,
+        db: MoviesDatabase
     ): TmdbRepository {
         return TmdbRepositoryImpl(service, db)
     }

@@ -1,4 +1,5 @@
 package com.aggarwalankur.tmdbsample
+
 import android.app.Application
 import android.util.Log
 import dagger.hilt.android.HiltAndroidApp
@@ -9,6 +10,7 @@ class TMDBSampleApp : Application() {
     companion object {
         lateinit var instance: Application private set
     }
+
     override fun onCreate() {
         super.onCreate()
         instance = this

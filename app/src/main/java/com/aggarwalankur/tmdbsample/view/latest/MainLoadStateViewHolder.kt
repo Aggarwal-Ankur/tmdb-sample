@@ -1,6 +1,5 @@
 package com.aggarwalankur.tmdbsample.view.latest
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -16,7 +15,7 @@ class MainLoadStateViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
     val retryButton = binding.retryButton
         .also {
-            it.setOnClickListener{retry()}
+            it.setOnClickListener { retry() }
         }
 
     fun bind(loadState: LoadState) {

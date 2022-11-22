@@ -3,14 +3,15 @@ package com.aggarwalankur.tmdbsample.view.viewmodels
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.common.Resource
-import com.aggarwalankur.tmdbsample.common.Strings
 import com.aggarwalankur.tmdbsample.domain.use_case.search_by_name.SearchMoviesByNameUseCase
 import com.aggarwalankur.tmdbsample.network.MovieList
 import com.aggarwalankur.tmdbsample.view.searchresults.SearchResultsFragmentArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -23,9 +24,6 @@ class SearchResultsViewModel @Inject constructor(
 
     private val _searchedMovies = MutableStateFlow(MovieList())
     val searchedMovies = _searchedMovies.asStateFlow()
-
-    private val _searchedMoviesError = MutableStateFlow(String())
-    val searchedMoviesError = _searchedMoviesError.asStateFlow()
 
     private val args = SearchResultsFragmentArgs.fromSavedStateHandle(savedStateHandle)
     private val searchString = args.searchQuery
@@ -40,11 +38,10 @@ class SearchResultsViewModel @Inject constructor(
 
     fun getSearchResults() {
         searchMoviesByNameUseCase(searchString).onEach { result ->
-            when(result) {
+            when (result) {
                 is Resource.Success -> {
-                    result.data?.let{
+                    result.data?.let {
                         _searchedMovies.value = it
-                        _searchedMoviesError.value = Strings.get(R.string.empty) //Clear any previous errors
                     }
                 }
 
@@ -53,13 +50,10 @@ class SearchResultsViewModel @Inject constructor(
                 }
 
                 is Resource.Error -> {
-                    _searchedMoviesError.value = Strings.get(R.string.default_network_error)
+                    Timber.d("Error in fetching search results. error = ${result.message}")
                 }
             }
 
         }.launchIn(viewModelScope)
     }
-
-
-
 }

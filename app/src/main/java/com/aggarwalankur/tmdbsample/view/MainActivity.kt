@@ -1,7 +1,7 @@
 package com.aggarwalankur.tmdbsample.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val navHostFragment = supportFragmentManager.findFragmentById(
-            R.id.fragmentContainerView) as NavHostFragment
+            R.id.fragmentContainerView
+        ) as NavHostFragment
         val navController = navHostFragment.findNavController()
 
         NavigationUI.setupActionBarWithNavController(this, navController)

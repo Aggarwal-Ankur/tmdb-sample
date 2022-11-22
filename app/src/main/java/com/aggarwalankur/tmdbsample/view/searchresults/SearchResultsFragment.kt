@@ -1,28 +1,22 @@
 package com.aggarwalankur.tmdbsample.view.searchresults
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.databinding.FragmentSearchResultsBinding
 import com.aggarwalankur.tmdbsample.network.Movie
-import com.aggarwalankur.tmdbsample.network.MovieList
-import com.aggarwalankur.tmdbsample.view.details.DetailsFragmentArgs
 import com.aggarwalankur.tmdbsample.view.latest.ItemViewHolder
-import com.aggarwalankur.tmdbsample.view.latest.MoviePageBindingAdapter
 import com.aggarwalankur.tmdbsample.view.viewmodels.SearchResultsViewModel
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class SearchResultsFragment : Fragment(), ItemViewHolder.OnClickListener {
@@ -30,14 +24,10 @@ class SearchResultsFragment : Fragment(), ItemViewHolder.OnClickListener {
         private set
 
     private lateinit var adapter: MovieListBindingAdapter
-    private lateinit var searchString : String
+    private lateinit var searchString: String
 
     private val args: SearchResultsFragmentArgs by navArgs()
     private val viewModel: SearchResultsViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +56,8 @@ class SearchResultsFragment : Fragment(), ItemViewHolder.OnClickListener {
     }
 
     private fun bindList(
-        adapter: MovieListBindingAdapter) {
+        adapter: MovieListBindingAdapter
+    ) {
         binding.swipeLayout.setOnRefreshListener {
             binding.swipeLayout.isRefreshing = false
             viewModel.getSearchResults()
@@ -77,22 +68,20 @@ class SearchResultsFragment : Fragment(), ItemViewHolder.OnClickListener {
                 adapter.submitList(it.items)
                 adapter.notifyDataSetChanged()
                 if (it.items.isNotEmpty()) {
-                    binding.searchCount.text = String.format(getString(R.string.search_results_text),
-                        it.items.size, it.totalCount, searchString )
+                    binding.searchCount.text = String.format(
+                        getString(R.string.search_results_text),
+                        it.items.size, it.totalCount, searchString
+                    )
                 } else {
-                    binding.searchCount.text = String.format(getString(R.string.no_results_text),
-                        searchString )
+                    binding.searchCount.text = String.format(
+                        getString(R.string.no_results_text),
+                        searchString
+                    )
 
                 }
             }
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.searchedMoviesError.filter { it.trim().isNotEmpty() }
-                .collectLatest {
-                    binding.searchCount.text = it
-            }
-        }
     }
 
 }

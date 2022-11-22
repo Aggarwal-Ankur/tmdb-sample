@@ -30,7 +30,7 @@ class TmdbRepositoryImpl @Inject constructor(
     }
 
     @OptIn(ExperimentalPagingApi::class)
-    override suspend fun getSearchFilteredMovies(searchString: String) : MovieList {
+    override suspend fun getSearchFilteredMovies(searchString: String): MovieList {
         return service.searchMovies(BuildConfig.API_KEY, searchString, 1)
     }
 

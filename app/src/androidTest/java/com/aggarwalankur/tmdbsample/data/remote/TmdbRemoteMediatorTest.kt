@@ -73,8 +73,11 @@ class TmdbRemoteMediatorTest {
 
         val result = remoteMediator.load(LoadType.REFRESH, pagingState)
 
-        MatcherAssert.assertThat(result, CoreMatchers.instanceOf(RemoteMediator.MediatorResult.Success::class.java))
-        Assert.assertFalse ((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
+        MatcherAssert.assertThat(
+            result,
+            CoreMatchers.instanceOf(RemoteMediator.MediatorResult.Success::class.java)
+        )
+        Assert.assertFalse((result as RemoteMediator.MediatorResult.Success).endOfPaginationReached)
     }
 
     @ExperimentalPagingApi

@@ -5,6 +5,6 @@ import javax.inject.Inject
 
 class GetLatestMoviesUseCase @Inject constructor(
     private val repository: TmdbRepository
-){
+) {
     operator fun invoke() = repository.getLatestMovies()
 }
