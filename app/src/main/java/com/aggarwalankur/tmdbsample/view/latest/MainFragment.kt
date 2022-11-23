@@ -1,5 +1,6 @@
 package com.aggarwalankur.tmdbsample.view.latest
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.databinding.FragmentMainBinding
 import com.aggarwalankur.tmdbsample.network.dto.Movie
@@ -42,8 +44,13 @@ class MainFragment : Fragment(), ItemViewHolder.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainBinding.inflate(inflater)
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        binding.list.addItemDecoration(decoration)
+
+
+        if (Configuration.ORIENTATION_PORTRAIT == resources.configuration.orientation) {
+            binding.list.layoutManager = GridLayoutManager(activity, 2)
+        } else {
+            binding.list.layoutManager = GridLayoutManager(activity, 3)
+        }
 
         searchView = binding.searchTV
         bindAdapter()

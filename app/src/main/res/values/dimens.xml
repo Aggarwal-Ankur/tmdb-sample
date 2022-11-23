@@ -3,6 +3,7 @@
     <dimen name="row_item_margin_vertical">12dp</dimen>
     <dimen name="error_label_size">16sp</dimen>
     <dimen name="error_text_size">24sp</dimen>
+    <dimen name="card_property">4dp</dimen>
     <dimen name="padding_small">4dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
@@ -10,5 +11,6 @@
     <dimen name="image_size">48dp</dimen>
     <dimen name="text_size_big">24sp</dimen>
     <dimen name="text_size_medium">20sp</dimen>
+    <dimen name="text_size_small">16sp</dimen>
     <dimen name="details_image_size">200dp</dimen>
 </resources>

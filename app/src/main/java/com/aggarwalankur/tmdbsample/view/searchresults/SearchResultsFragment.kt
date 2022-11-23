@@ -1,5 +1,6 @@
 package com.aggarwalankur.tmdbsample.view.searchresults
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import com.aggarwalankur.tmdbsample.R
 import com.aggarwalankur.tmdbsample.databinding.FragmentSearchResultsBinding
 import com.aggarwalankur.tmdbsample.network.dto.Movie
@@ -36,8 +38,11 @@ class SearchResultsFragment : Fragment(), ItemViewHolder.OnClickListener {
         binding = FragmentSearchResultsBinding.inflate(inflater).apply {
             searchString = args.searchQuery
         }
-        val decoration = DividerItemDecoration(activity, DividerItemDecoration.VERTICAL)
-        binding.list.addItemDecoration(decoration)
+        if (Configuration.ORIENTATION_PORTRAIT == resources.configuration.orientation) {
+            binding.list.layoutManager = GridLayoutManager(activity, 2)
+        } else {
+            binding.list.layoutManager = GridLayoutManager(activity, 3)
+        }
 
         binding.bindState()
 
